@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   keycloak: {
-    issuer: 'http://localhost:8081/auth/',
+    issuer: 'http://localhost:8080/auth/',
     realm: 'geekocon-realm',
     clientId: 'geekocon-front'
   }
