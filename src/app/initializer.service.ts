@@ -26,10 +26,12 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
           },
           bearerExcludedUrls: []
         });
-        Promise.resolve();
+        // @ts-ignore
+        resolve();
       } catch (error) {
         reject(error);
       }
     });
   };
 }
+
