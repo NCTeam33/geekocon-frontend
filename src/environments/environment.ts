@@ -8,7 +8,8 @@ export const environment = {
     issuer: 'http://localhost:8080/auth/',
     realm: 'geekocon-realm',
     clientId: 'geekocon-front'
-  }
+  },
+  api_host: 'http://localhost:8080'
 };
 
 /*

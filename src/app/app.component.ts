@@ -8,7 +8,7 @@ import { KeycloakService } from 'keycloak-angular';
 })
 
 export class AppComponent implements OnInit {
-  title = 'pet-store';
+  title = 'Geekocon-fest';
   roles: string[];
   username: string;
 
