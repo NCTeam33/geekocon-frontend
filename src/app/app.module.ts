@@ -7,16 +7,18 @@ import { AdminNavComponent } from './admin-nav/admin-nav.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
 import { initializer } from './initializer.service';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
-import { InformationComponent } from './information/information.component';
-import { EntertainmentComponent } from './entertainment/entertainment.component';
+import { ZonesComponent } from './zones/zones.component';
+import { TicketsComponent } from './tickets/tickets.component';
+import { ContributorsComponent } from './contributors/contributors.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminNavComponent,
     UserNavComponent,
-    InformationComponent,
-    EntertainmentComponent,
+    ZonesComponent,
+    TicketsComponent,
+    ContributorsComponent,
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,8 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
           },
           loadUserProfileAtStartUp: true,
           initOptions: {
-            onLoad: 'login-required'
+            onLoad: 'check-sso',
+            silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
           },
           bearerExcludedUrls: []
         });

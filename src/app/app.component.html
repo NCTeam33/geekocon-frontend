@@ -1,7 +1,11 @@
-<div *ngIf="username">Welcome username </div>
-<div *ngIf="roles.includes('visitor')">
-  <app-user-nav></app-user-nav>
-</div>
+<button (click)="logout()">Logout</button>
+<button (click)="login()">Log In</button>
+<br/>
+<div *ngIf="login"> <div *ngIf="username">Welcome {{ username }}</div> </div>
+<app-user-nav></app-user-nav>
+
 <div *ngIf="roles.includes('manager')">
   <app-admin-nav></app-admin-nav>
 </div>
+
+<router-outlet></router-outlet>

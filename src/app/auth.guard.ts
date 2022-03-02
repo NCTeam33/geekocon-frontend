@@ -14,7 +14,23 @@ export class AuthGuard extends KeycloakAuthGuard{
 
   isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      resolve(true);
+      const userRoles: string[] = this.service.getUserRoles();
+      console.log(`Roles: ${userRoles}`);
+
+      console.log(`URL: ${state.url}`);
+      if (state.url === '/tickets' && userRoles.indexOf('visitor') >= 0) {
+        console.log('Permission allowed');
+        resolve(true);
+      }
+      if (state.url === '/zones' && userRoles.indexOf('visitor') >= 0) {
+        console.log('Permission allowed');
+        resolve(true);
+      }
+      else {
+        console.log('Permission not allowed');
+        resolve(false);
+      }
+
     });
   }
 }

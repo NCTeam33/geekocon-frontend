@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Entertainment, Information } from './_model';
+
 import { environment as env } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import {Zone} from './_model/zone.model';
+import {Tickets} from './_model/tickets.model';
+import {Contributor} from './_model/contributor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +14,19 @@ export class FestService {
 
   constructor(private http: HttpClient) { }
 
-  getEntertainment(): Observable<Entertainment[]> {
-    const uri = `${env.api_host}/v1/entertainment`;
-    return this.http.get<Entertainment[]>(uri);
+  getEntertainment(): Observable<Zone[]> {
+    const uri = `${env.api_host}/v1/zone`;
+    return this.http.get<Zone[]>(uri);
   }
 
-  getInformation(): Observable<Information[]> {
-    const uri = `${env.api_host}/v1/information`;
-    return this.http.get<Information[]>(uri);
+  getTickets(): Observable<Tickets[]> {
+    const uri = `${env.api_host}/v1/tickets`;
+    return this.http.get<Tickets[]>(uri);
+  }
+
+  getContributors(): Observable<Contributor[]> {
+    const uri = `${env.api_host}/v1/contributors`;
+    return this.http.get<Contributor[]>(uri);
   }
 
 }
