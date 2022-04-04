@@ -8,9 +8,10 @@ import { KeycloakService } from 'keycloak-angular';
 })
 
 export class AppComponent implements OnInit {
-  title = 'Geekocon-fest';
+  title = 'Geekocon';
   roles: string[];
   username: string;
+  url: number;
 
   constructor(private keycloak: KeycloakService) {
   }
@@ -25,6 +26,26 @@ export class AppComponent implements OnInit {
   }
   login(): void{
     this.keycloak.login();
+  }
+  sendToUrl(urlBuff: string): void{
+    switch (urlBuff){
+      case 'home': {
+        this.url = 1;
+        break;
+      }
+      case 'aboutUs': {
+        this.url = 2;
+        break;
+      }
+      case 'zones': {
+        this.url = 3;
+        break;
+      }
+      case 'reg_zone': {
+        this.url = 4;
+        break;
+      }
+    }
   }
 }
 

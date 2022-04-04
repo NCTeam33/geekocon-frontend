@@ -8,7 +8,6 @@ import { UserNavComponent } from './user-nav/user-nav.component';
 import { initializer } from './initializer.service';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { ZonesComponent } from './zones/zones.component';
-import { TicketsComponent } from './tickets/tickets.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { ContributorsComponent } from './contributors/contributors.component';
     AdminNavComponent,
     UserNavComponent,
     ZonesComponent,
-    TicketsComponent,
     ContributorsComponent,
   ],
   imports: [
