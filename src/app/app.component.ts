@@ -11,11 +11,12 @@ export class AppComponent implements OnInit {
   title = 'Geekocon';
   roles: string[];
   username: string;
-  url: number;
+  isLoggedIn = false;
 
-  constructor(private keycloak: KeycloakService) {
+  constructor(private readonly keycloak: KeycloakService) {
   }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.isLoggedIn = await this.keycloak.isLoggedIn();
     this.roles = this.keycloak.getUserRoles();
     this.keycloak.loadUserProfile().then(profile => {
       this.username = `${profile.firstName} ${profile.lastName}`;
@@ -26,26 +27,6 @@ export class AppComponent implements OnInit {
   }
   login(): void{
     this.keycloak.login();
-  }
-  sendToUrl(urlBuff: string): void{
-    switch (urlBuff){
-      case 'home': {
-        this.url = 1;
-        break;
-      }
-      case 'aboutUs': {
-        this.url = 2;
-        break;
-      }
-      case 'zones': {
-        this.url = 3;
-        break;
-      }
-      case 'reg_zone': {
-        this.url = 4;
-        break;
-      }
-    }
   }
 }
 

@@ -1,24 +1,20 @@
-<button class="button" id="in" (click)="login()">LogIn</button>
-<button class="button" id="out" (click)="logout()">LogOut</button>
+<header>
+  <div class="container">
+  <nav>
+    <ul>
+      <li><a routerLink="home">Home</a></li>
+      <li><a routerLink="about_us">About us</a></li>
+      <li><a routerLink="zones">Geek Zones</a></li>
+      <li *ngIf="roles.includes('contributor')"><a routerLink="register_zone">Register Zone</a></li>
+    </ul>
+  </nav>
+</div>
+  <div class="button">
+    <button *ngIf = "!isLoggedIn" type="button" (click)="login()">LogIn</button>
+    <button *ngIf="isLoggedIn" type="button" (click)="logout()">LogOut</button>
+  </div>
+</header>
 <div *ngIf="login">
   <div *ngIf="username" class="welcomeTitle">Welcome {{ username }}</div>
-</div>
-<nav class="topNav">
-  <a href="#home" (click)="sendToUrl('home')">Home</a>
-  <a href="#about_us" (click)="sendToUrl('aboutUs')">About us</a>
-  <a href="#zones" (click)="sendToUrl('zones')">Geek Zones</a>
-  <a *ngIf="roles.includes('contributor')" href="#register_zone" (click)="sendToUrl('reg_zone')">Register Zone</a>
-</nav>
-<div *ngIf="url===1">
-  <app-user-nav></app-user-nav>
-</div>
-<div *ngIf="url===2">
-  <h1>Working header!</h1>
-</div>
-<div *ngIf="url===3">
-  <h1>Working header!</h1>
-</div>
-<div *ngIf="url===4">
-  <app-admin-nav></app-admin-nav>
 </div>
 <router-outlet></router-outlet>
