@@ -14,7 +14,7 @@ export class ZonesComponent implements OnInit {
   constructor(private fest: FestService) { }
 
   ngOnInit(): void {
-    const zone$ = this.fest.getEntertainment().pipe(
+    const zone$ = this.fest.getZones().pipe(
       map(results => {
         this.zones = results;
       }),

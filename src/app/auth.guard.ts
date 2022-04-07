@@ -25,7 +25,6 @@ export class AuthGuard extends KeycloakAuthGuard{
         console.log('Permission not allowed');
         resolve(false);
       }
-
     });
   }
 }

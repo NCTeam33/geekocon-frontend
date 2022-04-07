@@ -13,7 +13,7 @@ export class FestService {
 
   constructor(private http: HttpClient) { }
 
-  getEntertainment(): Observable<Zone[]> {
+  getZones(): Observable<Zone[]> {
     const uri = `${env.api_host}/v1/zone`;
     return this.http.get<Zone[]>(uri);
   }
