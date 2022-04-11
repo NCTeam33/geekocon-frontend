@@ -1,16 +1,22 @@
-<p>zones works!</p>
 <table>
   <tr>
     <th>Zone Name</th>
-    <th>Zone ID</th>
     <th>Zone Type</th>
+    <th>Description</th>
+    <th>Contributor ID</th>
+    <th>Total tickets amount</th>
+    <th>Available tickets amount</th>
+    <th></th>
   </tr>
   <tr *ngFor = "let zone of zones">
     <td>{{zone.name}}</td>
-    <td>{{zone.id}}</td>
-    <td>{{zone.type}}</td>
+    <td>{{zone.type_id}}</td>
+    <td>{{zone.description}}</td>
+    <td>{{zone.contributor_id}}</td>
+    <td>{{zone.total_tickets_amount}}</td>
+    <td>{{zone.available_ticket_amount}}</td>
   </tr>
   <tr *ngIf="zones === undefined">
-    <td colspan="3">No data</td>
+    <td colspan="6">No data</td>
   </tr>
 </table>

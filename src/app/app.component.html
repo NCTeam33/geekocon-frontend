@@ -4,8 +4,17 @@
     <ul>
       <li><a routerLink="home">Home</a></li>
       <li><a routerLink="about_us">About us</a></li>
-      <li><a routerLink="zones">Geek Zones</a></li>
-      <li *ngIf="roles.includes('contributor')"><a routerLink="register_zone">Register Zone</a></li>
+      <li><div class = "dropdownForZones">
+        <select label = "Geek Zones">
+          <option selected disabled>Geek Zones</option>
+          <optgroup label="Type of zone">
+            <option>Game</option>
+            <option>Book</option>
+            <option>Film</option>
+          </optgroup>
+        </select>
+      </div></li>
+      <li><a *ngIf="roles.includes('contributor')" routerLink="register_zone">Register Zone</a></li>
     </ul>
   </nav>
 </div>
@@ -14,7 +23,8 @@
     <button *ngIf="isLoggedIn" type="button" (click)="logout()">LogOut</button>
   </div>
 </header>
-<div *ngIf="login">
+<!--<div *ngIf="login">
   <div *ngIf="username" class="welcomeTitle">Welcome {{ username }}</div>
-</div>
+</div>-->
 <router-outlet></router-outlet>
+

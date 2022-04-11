@@ -7,19 +7,22 @@ import { UserNavComponent } from './user-nav/user-nav.component';
 import { initializer } from './initializer.service';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { ZonesComponent } from './zones/zones.component';
-import { ContributorsComponent } from './contributors/contributors.component';
+import { ZoneManagementComponent } from './zone-management/zone-management.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserNavComponent,
     ZonesComponent,
-    ContributorsComponent,
+    ZoneManagementComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     KeycloakAngularModule,
+    MatSelectModule,
   ],
   providers: [{
     provide: APP_INITIALIZER,

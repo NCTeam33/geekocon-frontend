@@ -4,11 +4,11 @@ import {Contributor} from '../_model/contributor.model';
 import {map} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-contributors',
-  templateUrl: './contributors.component.html',
-  styleUrls: ['./contributors.component.less']
+  selector: 'app-zone-management',
+  templateUrl: './zone-management.component.html',
+  styleUrls: ['./zone-management.component.less']
 })
-export class ContributorsComponent implements OnInit {
+export class ZoneManagementComponent implements OnInit {
 
   contributors: Contributor[];
   constructor(private fest: FestService) { }

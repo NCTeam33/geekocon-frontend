@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ZonesComponent} from './zones/zones.component';
-import {ContributorsComponent} from './contributors/contributors.component';
+import {ZoneManagementComponent} from './zone-management/zone-management.component';
 import {AuthGuard} from './auth.guard';
 import {UserNavComponent} from './user-nav/user-nav.component';
 
@@ -11,7 +11,7 @@ const routes: Routes = [
   // TODO: FOR ANNA - MAKE ABOUT US COMPONENT
   // {path: 'about_us', component: },
   {path: 'zones', component: ZonesComponent},
-  {path: 'register_zone', component: ContributorsComponent, canActivate: [AuthGuard]}
+  {path: 'register_zone', component: ZoneManagementComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
