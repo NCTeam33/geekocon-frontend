@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injectable, Input, OnInit} from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  styleUrls: ['./app.component.less'],
 })
 
 export class AppComponent implements OnInit {
   title = 'Geekocon';
-  roles: string[];
   username: string;
   isLoggedIn = false;
 
@@ -17,16 +16,19 @@ export class AppComponent implements OnInit {
   }
   async ngOnInit(): Promise<void> {
     this.isLoggedIn = await this.keycloak.isLoggedIn();
-    this.roles = this.keycloak.getUserRoles();
-    this.keycloak.loadUserProfile().then(profile => {
+    /*this.keycloak.loadUserProfile().then(profile => {
       this.username = `${profile.firstName} ${profile.lastName}`;
-    });
+    });*/
   }
   logout(): void {
     this.keycloak.logout();
   }
   login(): void{
     this.keycloak.login();
+  }
+
+  getRoles(): string[]{
+    return this.keycloak.getUserRoles();
   }
 }
 

@@ -3,18 +3,22 @@ import { FestService } from '../fest.service';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Zone } from '../_model/zone.model';
+import {AppComponent} from '../app.component';
+
 @Component({
   selector: 'app-zones',
   templateUrl: './zones.component.html',
   styleUrls: ['./zones.component.less']
 })
-export class ZonesComponent implements OnInit {
 
+export class ZonesComponent implements OnInit {
+  _roles: string[];
   zones: Zone[];
-  constructor(private fest: FestService) { }
+  constructor(private fest: FestService, private app: AppComponent) { }
 
   ngOnInit(): void {
-    const zone$ = this.fest.getZones().pipe(
+    this.getRoles();
+    /*const zone$ = this.fest.getZones().pipe(
       map(results => {
         this.zones = results;
       }),
@@ -22,7 +26,9 @@ export class ZonesComponent implements OnInit {
         console.log(error);
         return of([]);
       })
-    );
+    );*/
   }
-
+  getRoles() {
+    this._roles = this.app.getRoles();
+  }
 }

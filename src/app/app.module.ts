@@ -1,35 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { UserNavComponent } from './user-nav/user-nav.component';
-import { initializer } from './initializer.service';
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
-import { ZonesComponent } from './zones/zones.component';
-import { ZoneManagementComponent } from './zone-management/zone-management.component';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatSelectModule} from '@angular/material/select';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {UserNavComponent} from './user-nav/user-nav.component';
+import {initializer} from './initializer.service';
+import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
+import {ZonesComponent} from './zones/zones.component';
+import {MaterialExampleModule} from '../material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserNavComponent,
     ZonesComponent,
-    ZoneManagementComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     KeycloakAngularModule,
-    MatSelectModule,
+    MaterialExampleModule,
   ],
   providers: [{
     provide: APP_INITIALIZER,
-  useFactory: initializer,
-  deps: [KeycloakService],
-  multi: true
-}],
+    useFactory: initializer,
+    deps: [KeycloakService],
+    multi: true
+  }, AppComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

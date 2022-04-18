@@ -1,22 +1,21 @@
-<table>
-  <tr>
-    <th>Zone Name</th>
-    <th>Zone Type</th>
-    <th>Description</th>
-    <th>Contributor ID</th>
-    <th>Total tickets amount</th>
-    <th>Available tickets amount</th>
-    <th></th>
-  </tr>
-  <tr *ngFor = "let zone of zones">
-    <td>{{zone.name}}</td>
-    <td>{{zone.type_id}}</td>
-    <td>{{zone.description}}</td>
-    <td>{{zone.contributor_id}}</td>
-    <td>{{zone.total_tickets_amount}}</td>
-    <td>{{zone.available_ticket_amount}}</td>
-  </tr>
-  <tr *ngIf="zones === undefined">
-    <td colspan="6">No data</td>
-  </tr>
-</table>
+<div class="container">
+<button mat-button id="mainMenu" [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="sortingMenu">Sort zones</button>
+  <button *ngIf="_roles.includes('contributor')" mat-menu-item [matMenuTriggerFor]="contributorMenu">Editing zones</button>
+</mat-menu>
+
+  <mat-menu #contributorMenu="matMenu">
+    <button mat-menu-item>Add zone</button>
+    <button mat-menu-item>Delete zone</button>
+    <button mat-menu-item>Edit zone</button>
+  </mat-menu>
+
+  <mat-menu #sortingMenu="matMenu">
+    <button mat-menu-item>Games</button>
+    <button mat-menu-item>Films</button>
+    <button mat-menu-item>Books</button>
+    <button mat-menu-item>Food</button>
+    <button mat-menu-item>Administration</button>
+  </mat-menu>
+</div>
