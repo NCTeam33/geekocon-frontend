@@ -1,14 +1,23 @@
-<div class="container">
-<button mat-button id="mainMenu" [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item [matMenuTriggerFor]="sortingMenu">Sort zones</button>
-  <button *ngIf="_roles.includes('contributor')" mat-menu-item [matMenuTriggerFor]="contributorMenu">Editing zones</button>
-</mat-menu>
+<div class="zone-container">
+  <button mat-icon-button color="primary" id="mainMenu" [matMenuTriggerFor]="menu"
+          aria-label="Menu icon button with a vertical three dot icon">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="sortingMenu">Sort zones</button>
+    <button *ngIf="_roles.includes('contributor')" mat-menu-item [matMenuTriggerFor]="contributorMenu">Editing zones
+    </button>
+  </mat-menu>
 
   <mat-menu #contributorMenu="matMenu">
-    <button mat-menu-item>Add zone</button>
-    <button mat-menu-item>Delete zone</button>
-    <button mat-menu-item>Edit zone</button>
+    <button mat-menu-item>
+      <mat-icon>add</mat-icon>
+      Add zone
+    </button>
+    <button mat-menu-item>
+      <mat-icon>delete</mat-icon>
+      Delete zone
+    </button>
   </mat-menu>
 
   <mat-menu #sortingMenu="matMenu">
@@ -19,3 +28,19 @@
     <button mat-menu-item>Administration</button>
   </mat-menu>
 </div>
+<mat-list id="zone-list">
+  <mat-list-item id="zone-item">
+    <mat-card id="zone-card" *ngFor="let zone of zones">
+      <mat-card-subtitle>{{zone.type_id.name}}</mat-card-subtitle>
+      <mat-card-title>{{zone.name}}</mat-card-title>
+      <mat-card-content>
+        <p>{{zone.description}}</p>
+        <p>Количество оставшихся билетов: {{zone.available_ticket_amount}}</p>
+      </mat-card-content>
+      <mat-divider inset></mat-divider>
+      <mat-card-actions>
+        <button *ngIf="_roles.includes('contributor')" mat-button (click)="openDialog()">Edit</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-list-item>
+</mat-list>

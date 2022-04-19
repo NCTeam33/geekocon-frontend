@@ -8,12 +8,14 @@ import {initializer} from './initializer.service';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {ZonesComponent} from './zones/zones.component';
 import {MaterialExampleModule} from '../material.module';
+import { DialogComponent } from './zones/dialog/dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserNavComponent,
     ZonesComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,8 @@ import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Zone } from '../_model/zone.model';
 import {AppComponent} from '../app.component';
+import {DialogComponent} from './dialog/dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-zones',
@@ -13,8 +15,11 @@ import {AppComponent} from '../app.component';
 
 export class ZonesComponent implements OnInit {
   _roles: string[];
-  zones: Zone[];
-  constructor(private fest: FestService, private app: AppComponent) { }
+  zones: Zone[] = [
+    {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
+    {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
+  ];
+  constructor(private fest: FestService, private app: AppComponent, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getRoles();
@@ -30,5 +35,9 @@ export class ZonesComponent implements OnInit {
   }
   getRoles() {
     this._roles = this.app.getRoles();
+  }
+
+  openDialog(){
+    this.dialog.open(DialogComponent);
   }
 }
