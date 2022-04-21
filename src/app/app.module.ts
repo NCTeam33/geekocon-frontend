@@ -10,6 +10,7 @@ import {ZonesComponent} from './zones/zones.component';
 import {MaterialExampleModule} from '../material.module';
 import {DialogComponent } from './zones/dialog/dialog.component';
 import {AboutUsComponent } from './about-us/about-us.component';
+import {FestService} from './fest.service';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import {AboutUsComponent } from './about-us/about-us.component';
     useFactory: initializer,
     deps: [KeycloakService],
     multi: true
-  }, AppComponent],
+  }, AppComponent, FestService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

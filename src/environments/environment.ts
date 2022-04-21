@@ -9,7 +9,7 @@ export const environment = {
     realm: 'geekocon-realm',
     clientId: 'geekocon-front'
   },
-  api_host: 'http://localhost:8080'
+  api_host: 'http://localhost:8081'
 };
 
 /*

@@ -6,9 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import {Zone} from './_model/zone.model';
 import {ZoneType} from './_model/zone.type.model';
 
-@Injectable({
+@Injectable()
+/*@Injectable({
   providedIn: 'root'
-})
+})*/
 export class FestService {
 
   constructor(private http: HttpClient) { }
@@ -47,7 +48,7 @@ export class FestService {
     const uri = `${env.api_host}/zones/types/${id}`;
     return this.http.delete(uri);
   }
-  
+
   deleteZone(id : number) {
     const uri = `${env.api_host}/zones/${id}`;
     return this.http.delete(uri);

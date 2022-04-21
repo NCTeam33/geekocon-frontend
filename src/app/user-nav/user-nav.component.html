@@ -11,9 +11,9 @@
     </tr>
     <tr *ngFor="let zone of zones">
         <td>{{zone.total_tickets_amount}}</td>
-        <td>{{zone.available_tickets_amount}}</td>
+        <td>{{zone.available_ticket_amount}}</td>
         <td>{{zone.name}}</td>
-        <td>{{zone.discription}}</td>
+        <td>{{zone.description}}</td>
     </tr>
     <tr *ngIf="zones === undefined">
         <td colspan="4">No data</td>
