@@ -2,6 +2,7 @@
   <nav mat-tab-nav-bar [tabPanel]="tabPanel">
     <a mat-tab-link routerLink="home">Home</a>
     <a mat-tab-link routerLink="zones">Geek Zones</a>
+    <a mat-tab-link routerLink="about_us">About us</a>
     <button *ngIf="!isLoggedIn" mat-raised-button id="login" color="primary" (click)="login()">LogIn</button>
     <button *ngIf="isLoggedIn" mat-raised-button id="logout" color="primary" (click)="logout()">LogOut</button>
   </nav>

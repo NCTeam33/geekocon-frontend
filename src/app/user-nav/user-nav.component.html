@@ -1,8 +1,46 @@
 <meta charset="utf-8">
 <body>
-<h1><b>04.04.2022</b></h1>
-<h2>Всем привет, наши милые гикокончики)<br>На сегодня новостей мало, но они <b>очень важные</b>!<br>
-  Во первых хотим объявить, что нашу выставку посетит сам <b>Хидео Кодзима!</b><br>
-  Во вторых билеты для покупки будут доступны 20.04.2022
-</h2>
+<h1 class="mainPart"><b>That's all you need to know about us</b></h1>
+<h2 class="mainPart">Photo report from last year</h2>
+<table>
+    <tr>
+        <th>Zone total tickets amount</th>
+        <th>Zone available Tickets Amount</th>
+        <th>Zone name</th>
+        <th>Zone discription</th>
+    </tr>
+    <tr *ngFor="let zone of zones">
+        <td>{{zone.total_tickets_amount}}</td>
+        <td>{{zone.available_tickets_amount}}</td>
+        <td>{{zone.name}}</td>
+        <td>{{zone.discription}}</td>
+    </tr>
+    <tr *ngIf="zones === undefined">
+        <td colspan="4">No data</td>
+    </tr>
+</table>
+<section class="section-g">
+  <div class="content-g">
+      <div style="text-align:center" class="slider middle">
+          <div class="slides">
+              <input type="radio" name="r" id="r1" checked>
+              <input type="radio" name="r" id="r2" checked>
+              <input type="radio" name="r" id="r3" checked>
+              <input type="radio" name="r" id="r4" checked>
+              <input type="radio" name="r" id="r5" checked>
+
+              <div class="slide s1"><img src="assets/images/front2.jpg" alt=""></div>
+              <div class="slide"><img src="assets/images/front3.jpg" alt=""></div>
+              <div class="slide"><img src="assets/images/front4.jpg" alt=""></div>
+              <div class="slide"><img src="assets/images/front5.jpg" alt=""></div>
+          </div>
+          <div class="navigation">
+              <label for="r1" class="bar"></label>
+              <label for="r2" class="bar"></label>
+              <label for="r3" class="bar"></label>
+              <label for="r4" class="bar"></label>
+          </div>
+      </div>
+  </div>
+</section>
 </body>

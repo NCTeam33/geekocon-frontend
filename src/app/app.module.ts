@@ -8,7 +8,9 @@ import {initializer} from './initializer.service';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {ZonesComponent} from './zones/zones.component';
 import {MaterialExampleModule} from '../material.module';
-import { DialogComponent } from './zones/dialog/dialog.component';
+import {DialogComponent } from './zones/dialog/dialog.component';
+import {AboutUsComponent } from './about-us/about-us.component';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { DialogComponent } from './zones/dialog/dialog.component';
     UserNavComponent,
     ZonesComponent,
     DialogComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,
