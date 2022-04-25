@@ -1,33 +1,34 @@
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Name of zone</mat-label>
-    <input matInput placeholder="Ex. Nintendo">
+    <input matInput placeholder="Ex. Nintendo" [(ngModel)]="data.name">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Type of zone (name)</mat-label>
-    <input matInput placeholder="Ex. Games">
+    <input matInput placeholder="Ex. Games" [(ngModel)]="data.type.name">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Contributor id</mat-label>
-    <input matInput placeholder="Ex. 8299277548939">
+    <input matInput placeholder="Ex. 8299277548939" [(ngModel)]="data.contributorId">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Description</mat-label>
-    <textarea matInput placeholder="Ex. This company provides..."></textarea>
+    <textarea matInput placeholder="Ex. This company provides..." [(ngModel)]="data.description"></textarea>
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Total tickets amount</mat-label>
-    <input matInput placeholder="Ex. 666">
+    <input matInput placeholder="Ex. 666" [(ngModel)]="data.availableTicketAmount">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Available tickets amount</mat-label>
-    <input matInput placeholder="Ex. 5">
+    <input matInput placeholder="Ex. 5" [(ngModel)]="data.totalTicketsAmount">
   </mat-form-field>
 </form>
 
+<button mat-button [matDialogClose]="data" cdkFocusInitial>Ok</button>
 <button mat-button mat-dialog-close>Close</button>

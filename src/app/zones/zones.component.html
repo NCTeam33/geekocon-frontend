@@ -10,11 +10,15 @@
   </mat-menu>
 
   <mat-menu #contributorMenu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="openDialogForAdd()">
       <mat-icon>add</mat-icon>
       Add zone
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="addZoneType()">
+      <mat-icon>library_add</mat-icon>
+      Add type of zone
+    </button>
+    <button mat-menu-item (click)="deleteZone()">
       <mat-icon>delete</mat-icon>
       Delete zone
     </button>
@@ -32,15 +36,15 @@
   <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)">
     <mat-grid-tile *ngFor="let zone of zones">
       <mat-card id="zone-card">
-        <mat-card-subtitle>{{zone.type_id.name}}</mat-card-subtitle>
+        <mat-card-subtitle>{{zone.type.name}}</mat-card-subtitle>
         <mat-card-title>{{zone.name}}</mat-card-title>
         <mat-card-content>
           <p>{{zone.description}}</p>
-          <p>Количество оставшихся билетов: {{zone.available_ticket_amount}}</p>
+          <p>Количество оставшихся билетов: {{zone.availableTicketAmount}}</p>
         </mat-card-content>
         <mat-divider inset></mat-divider>
         <mat-card-actions>
-          <button *ngIf="_roles.includes('contributor')" mat-button (click)="openDialog()">Edit</button>
+          <button *ngIf="_roles.includes('contributor')" mat-button (click)="openDialogForEditing()">Edit</button>
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>

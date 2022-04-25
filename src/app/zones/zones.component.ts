@@ -16,6 +16,7 @@ import {MatDialog} from '@angular/material/dialog';
 export class ZonesComponent implements OnInit {
   _roles: string[];
   breakpoint: number;
+  singleZone: Zone;
   zones: Zone[] = [];/*[
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
@@ -24,7 +25,8 @@ export class ZonesComponent implements OnInit {
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150}
   ];*/
-  constructor(private fest: FestService, private app: AppComponent, private dialog: MatDialog) { }
+  constructor(private fest: FestService, private app: AppComponent, private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.getRoles();
@@ -32,17 +34,21 @@ export class ZonesComponent implements OnInit {
       (window.innerWidth <= 650) ? 1 : (window.innerWidth <= 970) ? 2 : (window.innerWidth <= 1050) ? 3 : 3;
     this.getZones();
   }
+
+  deleteZone() {
+    //this.fest.deleteZone()
+  }
+
+  addZoneType() {
+
+  }
   getZones() {
-    const zone$ = this.fest.getTestZones().pipe(
+    const zone$ = this.fest.getTestZones().pipe
+    (
       map(results => {
         this.zones = results;
-      }),
-      catchError(error => {
-        console.log(error);
-        return of([]);
       })
     );
-
     zone$.subscribe(data => data);
   }
 
@@ -50,9 +56,33 @@ export class ZonesComponent implements OnInit {
     this._roles = this.app.getRoles();
   }
 
-  openDialog(){
-    this.dialog.open(DialogComponent);
+  openDialogForAdd() {
+    const dialForAdd = this.dialog.open(DialogComponent, {
+      data: {
+        name: this.singleZone.name, typeName: this.singleZone.type.name, contributorId: this.singleZone.contributorId, description: this.singleZone.description,
+        availableTicketAmount: this.singleZone.availableTicketAmount, totalTicketAmount: this.singleZone.totalTicketsAmount
+      },
+    });
+
+    dialForAdd.afterClosed().subscribe(result => {
+      console.log("Zone successfully added");
+      this.fest.addZone(result);
+    })
   }
+    openDialogForEditing()
+    {
+      const dialForEdit = this.dialog.open(DialogComponent, {
+        data: {
+          name: this.singleZone.name, typeName: this.singleZone.type.name, contributorId: this.singleZone.contributorId, description: this.singleZone.description,
+          availableTicketAmount: this.singleZone.availableTicketAmount, totalTicketAmount: this.singleZone.totalTicketsAmount
+        },
+      });
+
+      dialForEdit.afterClosed().subscribe(result => {
+        console.log("Zone successfully edited");
+        this.fest.addZone(result);
+      })
+    }
 
   onResize(event) {
     this.breakpoint =

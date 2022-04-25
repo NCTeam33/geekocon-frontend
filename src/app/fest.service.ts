@@ -6,10 +6,9 @@ import { HttpClient } from '@angular/common/http';
 import {Zone} from './_model/zone.model';
 import {ZoneType} from './_model/zone.type.model';
 
-@Injectable()
-/*@Injectable({
+@Injectable({
   providedIn: 'root'
-})*/
+})
 export class FestService {
 
   constructor(private http: HttpClient) { }

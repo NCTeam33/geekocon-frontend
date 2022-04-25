@@ -11,6 +11,8 @@ import {MaterialExampleModule} from '../material.module';
 import {DialogComponent } from './zones/dialog/dialog.component';
 import {AboutUsComponent } from './about-us/about-us.component';
 import {FestService} from './fest.service';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -21,19 +23,21 @@ import {FestService} from './fest.service';
     DialogComponent,
     AboutUsComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    KeycloakAngularModule,
-    MaterialExampleModule,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        KeycloakAngularModule,
+        MaterialExampleModule,
+        HttpClientModule,
+        FormsModule
+    ],
   providers: [{
     provide: APP_INITIALIZER,
     useFactory: initializer,
     deps: [KeycloakService],
     multi: true
-  }, AppComponent, FestService],
+  }, AppComponent, FestService, ZonesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
