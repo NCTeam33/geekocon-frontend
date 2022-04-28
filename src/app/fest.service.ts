@@ -33,9 +33,9 @@ export class FestService {
     return this.http.get<Zone[]>(uri);
   }
 
-  addZoneType(ZoneType : ZoneType) {
+  addZoneType(zoneType : ZoneType): Observable<ZoneType> {
     const uri = `${env.api_host}/zones/types`;
-    return this.http.post<ZoneType>(uri, ZoneType);
+    return this.http.post<ZoneType>(uri, zoneType);
   }
 
   addZone(Zone : Zone) {

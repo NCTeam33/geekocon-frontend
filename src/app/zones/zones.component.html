@@ -34,7 +34,7 @@
 </div>
 <div id="card-list">
   <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)">
-    <mat-grid-tile *ngFor="let zone of zones">
+    <mat-grid-tile *ngFor="let zone of zones | async">
       <mat-card id="zone-card">
         <mat-card-subtitle>{{zone.type.name}}</mat-card-subtitle>
         <mat-card-title>{{zone.name}}</mat-card-title>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FestService } from '../fest.service';
 import { map, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { Zone } from '../_model/zone.model';
 import { ZoneType } from '../_model/zone.type.model';
 import {AppComponent} from '../app.component';
@@ -18,9 +18,14 @@ import { DialogZoneTypeComponent } from './dialog-zone-type/dialog-zone-type.com
 export class ZonesComponent implements OnInit {
   _roles: string[];
   breakpoint: number;
-  singleZone: Zone;
+  zoneName: string;
   zoneType : ZoneType;
-  zones: Zone[] = [];/*[
+  contributorId: number;
+  description: string;
+  ata: number;
+  tta: number;
+  zoneTypeName: string;
+  zones: Zone[];/*[
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
@@ -45,13 +50,19 @@ export class ZonesComponent implements OnInit {
   addZoneType() {
     const dialForAdd = this.dzt.open(DialogZoneTypeComponent, {
       data: {
-        name: this.zoneType.name
+        name: this.zoneTypeName
       },
     });
 
     dialForAdd.afterClosed().subscribe(result => {
       console.log("Zone type successfully added");
-      this.fest.addZoneType(result);
+      let buff: ZoneType = new ZoneType(result);
+      const zoneType$ = this.fest.addZoneType(buff).pipe(
+        map(result => {
+          this.zoneType = result;
+        })
+      );
+      zoneType$.subscribe(data => data);
     })
   }
   getZones() {
@@ -61,7 +72,7 @@ export class ZonesComponent implements OnInit {
         this.zones = results;
       })
     );
-    zone$.subscribe(data => data);
+    //zone$.subscribe(data => data);
   }
 
   getRoles() {
@@ -71,8 +82,8 @@ export class ZonesComponent implements OnInit {
   openDialogForAdd() {
     const dialForAdd = this.dialog.open(DialogComponent, {
       data: {
-        name: this.singleZone.name, typeName: this.singleZone.type.name, contributorId: this.singleZone.contributorId, description: this.singleZone.description,
-        availableTicketAmount: this.singleZone.availableTicketAmount, totalTicketAmount: this.singleZone.totalTicketsAmount
+        name: this.zoneName, typeName: this.zoneTypeName, contributorId: this.contributorId, description: this.description,
+        availableTicketAmount: this.ata, totalTicketAmount: this.tta
       },
     });
 
@@ -85,8 +96,8 @@ export class ZonesComponent implements OnInit {
     {
       const dialForEdit = this.dialog.open(DialogComponent, {
         data: {
-          name: this.singleZone.name, typeName: this.singleZone.type.name, contributorId: this.singleZone.contributorId, description: this.singleZone.description,
-          availableTicketAmount: this.singleZone.availableTicketAmount, totalTicketAmount: this.singleZone.totalTicketsAmount
+          name: this.zoneName, typeName: this.zoneTypeName, contributorId: this.contributorId, description: this.description,
+          availableTicketAmount: this.ata, totalTicketAmount: this.tta
         },
       });
 

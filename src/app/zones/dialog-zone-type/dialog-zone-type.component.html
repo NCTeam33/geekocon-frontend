@@ -1,9 +1,9 @@
 <form class="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Name of Type</mat-label>
-      <input matInput placeholder="Ex. Games" [(ngModel)]="data.type.name">
+      <input matInput placeholder="Ex. Games" [(ngModel)]="data.name">
     </mat-form-field>
 </form>
 
-<button mat-button [matDialogClose]="data.type.name" cdkFocusInitial>Ok</button>
+<button mat-button [matDialogClose]="data.name" cdkFocusInitial>Ok</button>
 <button mat-button mat-dialog-close>Close</button>
