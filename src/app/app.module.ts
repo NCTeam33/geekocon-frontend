@@ -13,6 +13,7 @@ import {AboutUsComponent } from './about-us/about-us.component';
 import {FestService} from './fest.service';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { DialogZoneTypeComponent } from './zones/dialog-zone-type/dialog-zone-type.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {FormsModule} from '@angular/forms';
     ZonesComponent,
     DialogComponent,
     AboutUsComponent,
+    DialogZoneTypeComponent,
   ],
     imports: [
         BrowserModule,

@@ -3,9 +3,11 @@ import { FestService } from '../fest.service';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Zone } from '../_model/zone.model';
+import { ZoneType } from '../_model/zone.type.model';
 import {AppComponent} from '../app.component';
 import {DialogComponent} from './dialog/dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import { DialogZoneTypeComponent } from './dialog-zone-type/dialog-zone-type.component';
 
 @Component({
   selector: 'app-zones',
@@ -17,6 +19,7 @@ export class ZonesComponent implements OnInit {
   _roles: string[];
   breakpoint: number;
   singleZone: Zone;
+  zoneType : ZoneType;
   zones: Zone[] = [];/*[
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
@@ -25,7 +28,7 @@ export class ZonesComponent implements OnInit {
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
     {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150}
   ];*/
-  constructor(private fest: FestService, private app: AppComponent, private dialog: MatDialog) {
+  constructor(private fest: FestService, private app: AppComponent, private dialog: MatDialog, private dzt: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -40,7 +43,16 @@ export class ZonesComponent implements OnInit {
   }
 
   addZoneType() {
+    const dialForAdd = this.dzt.open(DialogZoneTypeComponent, {
+      data: {
+        name: this.zoneType.name
+      },
+    });
 
+    dialForAdd.afterClosed().subscribe(result => {
+      console.log("Zone type successfully added");
+      this.fest.addZoneType(result);
+    })
   }
   getZones() {
     const zone$ = this.fest.getTestZones().pipe
