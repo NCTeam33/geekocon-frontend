@@ -8,6 +8,9 @@ import {AppComponent} from '../app.component';
 import {DialogComponent} from './dialog/dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogZoneTypeComponent } from './dialog-zone-type/dialog-zone-type.component';
+import {MatBottomSheet} from '@angular/material/bottom-sheet';
+import {BottomSheetComponent} from './bottom-sheet/bottom-sheet.component';
+import {types} from '@angular/compiler-cli/linker/babel/src/babel_core';
 
 @Component({
   selector: 'app-zones',
@@ -17,23 +20,19 @@ import { DialogZoneTypeComponent } from './dialog-zone-type/dialog-zone-type.com
 
 export class ZonesComponent implements OnInit {
   _roles: string[];
+  zones: Zone[];
+  zoneTypes: ZoneType[];
   breakpoint: number;
-  zoneName: string;
+  singleZone: Zone;
   zoneType : ZoneType;
+  zoneName: string;
   contributorId: number;
   description: string;
   ata: number;
   tta: number;
   zoneTypeName: string;
-  zones: Zone[];/*[
-    {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
-    {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
-    {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
-    {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
-    {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150},
-    {name: 'Nintendo', type_id: {name: 'Games', id: 1}, contributor_id:1243124, description: 'Nintendo — японская компания, специализирующаяся на создании видеоигр и игровых систем, со штаб-квартирой в Киото. Компания была основана в 1889 году ремесленником Фусадзиро Ямаути под названием Nintendo Karuta и первоначально производила игральные карты ручной работы «ханафуда».', available_ticket_amount: 5, total_tickets_amount:150}
-  ];*/
-  constructor(private fest: FestService, private app: AppComponent, private dialog: MatDialog, private dzt: MatDialog) {
+  zoneTypeId: number;
+  constructor(private fest: FestService, private app: AppComponent, private dialogForZones: MatDialog, private dialogForZoneTypes: MatDialog, private zoneTypeSheet: MatBottomSheet) {
   }
 
   ngOnInit(): void {
@@ -41,14 +40,15 @@ export class ZonesComponent implements OnInit {
     this.breakpoint =
       (window.innerWidth <= 650) ? 1 : (window.innerWidth <= 970) ? 2 : (window.innerWidth <= 1050) ? 3 : 3;
     this.getZones();
+    this.getZoneTypes();
   }
 
-  deleteZone() {
-    //this.fest.deleteZone()
+  deleteZone(zone: Zone) {
+    this.fest.deleteZone(zone.id).subscribe();
   }
 
   addZoneType() {
-    const dialForAdd = this.dzt.open(DialogZoneTypeComponent, {
+    const dialForAdd = this.dialogForZoneTypes.open(DialogZoneTypeComponent, {
       data: {
         name: this.zoneTypeName
       },
@@ -66,46 +66,84 @@ export class ZonesComponent implements OnInit {
     })
   }
   getZones() {
-    const zone$ = this.fest.getTestZones().pipe
-    (
-      map(results => {
-        this.zones = results;
-      })
-    );
-    //zone$.subscribe(data => data);
+    this.fest.getZones().subscribe(zones => this.zones = zones);
+  }
+
+  getZoneTypes() {
+    this.fest.getZonesTypes().subscribe(zoneTypes => this.zoneTypes = zoneTypes);
   }
 
   getRoles() {
     this._roles = this.app.getRoles();
   }
 
-  openDialogForAdd() {
-    const dialForAdd = this.dialog.open(DialogComponent, {
+  openBottomSheet() {
+    this.zoneTypeSheet.open(BottomSheetComponent, {
       data: {
-        name: this.zoneName, typeName: this.zoneTypeName, contributorId: this.contributorId, description: this.description,
-        availableTicketAmount: this.ata, totalTicketAmount: this.tta
+        types: this.zoneTypes,
+      }
+    });
+  }
+
+  openDialogForAdd() {
+    const dialForAdd = this.dialogForZones.open(DialogComponent, {
+      data: {
+        zone: {
+          type: {
+            name: this.zoneTypeName, id: this.zoneTypeId,
+          },
+          contributorId: this.contributorId, description: this.description,
+          totalTicketAmount: this.tta, availableTicketAmount: this.ata, name: this.zoneName
+        }
       },
     });
-
     dialForAdd.afterClosed().subscribe(result => {
-      console.log("Zone successfully added");
-      this.fest.addZone(result);
+      let buff = new Zone(new ZoneType(result.type.name, result.type.id),
+        result.contributorId,
+        result.description,
+        result.totalTicketAmount,
+        result.availableTicketAmount,
+        result.name,
+        );
+      console.log("Zone successfully added" + result);
+      const zone$ = this.fest.addZone(buff).pipe(
+        map(result => {
+          this.singleZone = result;
+        })
+      );
+      zone$.subscribe(data => data);
     })
   }
-    openDialogForEditing()
+    /*openDialogForEditing()
     {
-      const dialForEdit = this.dialog.open(DialogComponent, {
+      const dialForAdd = this.dialogForZones.open(DialogComponent, {
         data: {
-          name: this.zoneName, typeName: this.zoneTypeName, contributorId: this.contributorId, description: this.description,
-          availableTicketAmount: this.ata, totalTicketAmount: this.tta
+          zone: {
+            type: {
+              name: this.zoneTypeName, id: this.zoneTypeId,
+            },
+            contributorId: this.contributorId, description: this.description,
+            totalTicketAmount: this.tta, availableTicketAmount: this.ata, name: this.zoneName
+          }
         },
       });
-
-      dialForEdit.afterClosed().subscribe(result => {
-        console.log("Zone successfully edited");
-        this.fest.addZone(result);
+      dialForAdd.afterClosed().subscribe(result => {
+        let buff = new Zone(new ZoneType(result.type.name, result.type.id),
+          result.contributorId,
+          result.description,
+          result.totalTicketAmount,
+          result.availableTicketAmount,
+          result.name,
+        );
+        console.log("Zone successfully edited" + result);
+        const zone$ = this.fest.editZone(buff).pipe(
+          map(result => {
+            this.singleZone = result;
+          })
+        );
+        zone$.subscribe(data => data);
       })
-    }
+    }*/
 
   onResize(event) {
     this.breakpoint =

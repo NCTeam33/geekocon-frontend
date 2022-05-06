@@ -9,15 +9,10 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./user-nav.component.less']
 })
 export class UserNavComponent implements OnInit {
-  zones : Zone[];
 
-  constructor(private fest : FestService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.fest.getTestZones().pipe(map(results => {
-      this.zones = results;
-    })
-  );
   }
 
 }

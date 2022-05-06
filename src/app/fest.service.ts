@@ -5,6 +5,7 @@ import { environment as env } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import {Zone} from './_model/zone.model';
 import {ZoneType} from './_model/zone.type.model';
+import {catchError, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class FestService {
     return this.http.post<ZoneType>(uri, zoneType);
   }
 
-  addZone(Zone : Zone) {
+  addZone(Zone : Zone): Observable<Zone> {
     const uri = `${env.api_host}/zones`;
     return this.http.post<Zone>(uri, Zone);
   }
@@ -48,9 +49,14 @@ export class FestService {
     return this.http.delete(uri);
   }
 
-  deleteZone(id : number) {
+  deleteZone(id : number){
     const uri = `${env.api_host}/zones/${id}`;
     return this.http.delete(uri);
+  }
+
+  editZone(zone: Zone){
+    const uri = `${env.api_host}/zones/${zone.id}`;
+    return this.http.post(uri, zone);
   }
 
 }

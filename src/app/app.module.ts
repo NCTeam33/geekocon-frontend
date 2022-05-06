@@ -14,6 +14,7 @@ import {FestService} from './fest.service';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { DialogZoneTypeComponent } from './zones/dialog-zone-type/dialog-zone-type.component';
+import { BottomSheetComponent } from './zones/bottom-sheet/bottom-sheet.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { DialogZoneTypeComponent } from './zones/dialog-zone-type/dialog-zone-ty
     DialogComponent,
     AboutUsComponent,
     DialogZoneTypeComponent,
+    BottomSheetComponent,
   ],
     imports: [
         BrowserModule,

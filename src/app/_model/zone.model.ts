@@ -1,19 +1,21 @@
 import {ZoneType} from './zone.type.model';
 
 export class Zone{
-  totalTicketsAmount: number;
+  id: number;
+  type: ZoneType;
+  contributorId: number;
+  description: string;
+  totalTicketAmount: number;
   availableTicketAmount: number;
   name: string;
-  description: string;
-  contributorId: number;
-  type: ZoneType;
 
-  constructor(totalTicketsAmount?: number, availableTicketAmount?: number, name?: string, description?: string, contributorId?: number, type?: ZoneType) {
-    this.totalTicketsAmount = totalTicketsAmount ?? 0;
+
+  constructor(type?: ZoneType, contributorId?: number, description?: string, totalTicketAmount?: number, availableTicketAmount?: number, name?: string) {
+    this.type = type ?? new ZoneType();
+    this.contributorId = contributorId ?? 0;
+    this.description = description ?? "";
+    this.totalTicketAmount = totalTicketAmount ?? 0;
     this.availableTicketAmount = availableTicketAmount ?? 0;
     this.name = name ?? "";
-    this.description = description ?? "";
-    this.contributorId = contributorId ?? 0;
-    this.type = type ?? new ZoneType();
   }
 }

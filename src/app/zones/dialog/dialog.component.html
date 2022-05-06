@@ -1,34 +1,39 @@
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Name of zone</mat-label>
-    <input matInput placeholder="Ex. Nintendo" [(ngModel)]="data.name">
+    <mat-label>Type of zone (id)</mat-label>
+    <input matInput placeholder="Ex. 1" [(ngModel)]="data.zone.type.id">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Type of zone (name)</mat-label>
-    <input matInput placeholder="Ex. Games" [(ngModel)]="data.type.name">
+    <input matInput placeholder="Ex. Games" [(ngModel)]="data.zone.type.name">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Contributor id</mat-label>
-    <input matInput placeholder="Ex. 8299277548939" [(ngModel)]="data.contributorId">
+    <input matInput placeholder="Ex. 291168c0-cb01-11ec-9d64-0242ac120002" [(ngModel)]="data.zone.contributorId">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Description</mat-label>
-    <textarea matInput placeholder="Ex. This company provides..." [(ngModel)]="data.description"></textarea>
+    <textarea matInput placeholder="Ex. This company provides..." [(ngModel)]="data.zone.description"></textarea>
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Total tickets amount</mat-label>
-    <input matInput placeholder="Ex. 666" [(ngModel)]="data.availableTicketAmount">
+    <input matInput placeholder="Ex. 666" [(ngModel)]="data.zone.availableTicketAmount">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Available tickets amount</mat-label>
-    <input matInput placeholder="Ex. 5" [(ngModel)]="data.totalTicketsAmount">
+    <input matInput placeholder="Ex. 5" [(ngModel)]="data.zone.totalTicketAmount">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Name of zone</mat-label>
+    <input matInput placeholder="Ex. Nintendo" [(ngModel)]="data.zone.name">
   </mat-form-field>
 </form>
 
-<button mat-button [matDialogClose]="data" cdkFocusInitial>Ok</button>
-<button mat-button mat-dialog-close>Close</button>
+<button mat-button [matDialogClose]="data.zone" cdkFocusInitial>Ok</button>
+<button mat-button (click)="onNoClick()">Close</button>

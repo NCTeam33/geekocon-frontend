@@ -2,23 +2,6 @@
 <body>
 <h1 class="mainPart"><b>That's all you need to know about us</b></h1>
 <h2 class="mainPart">Photo report from last year</h2>
-<table>
-    <tr>
-        <th>Zone total tickets amount</th>
-        <th>Zone available Tickets Amount</th>
-        <th>Zone name</th>
-        <th>Zone discription</th>
-    </tr>
-    <tr *ngFor="let zone of zones">
-        <td>{{zone.total_tickets_amount}}</td>
-        <td>{{zone.available_ticket_amount}}</td>
-        <td>{{zone.name}}</td>
-        <td>{{zone.description}}</td>
-    </tr>
-    <tr *ngIf="zones === undefined">
-        <td colspan="4">No data</td>
-    </tr>
-</table>
 <section class="section-g">
   <div class="content-g">
       <div style="text-align:center" class="slider middle">

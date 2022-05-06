@@ -18,9 +18,9 @@
       <mat-icon>library_add</mat-icon>
       Add type of zone
     </button>
-    <button mat-menu-item (click)="deleteZone()">
+    <button mat-menu-item (click)="openBottomSheet()">
       <mat-icon>delete</mat-icon>
-      Delete zone
+      Delete Zone Type
     </button>
   </mat-menu>
 
@@ -34,17 +34,18 @@
 </div>
 <div id="card-list">
   <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)">
-    <mat-grid-tile *ngFor="let zone of zones | async">
+    <mat-grid-tile *ngFor="let zone of zones">
       <mat-card id="zone-card">
         <mat-card-subtitle>{{zone.type.name}}</mat-card-subtitle>
         <mat-card-title>{{zone.name}}</mat-card-title>
         <mat-card-content>
           <p>{{zone.description}}</p>
-          <p>Количество оставшихся билетов: {{zone.availableTicketAmount}}</p>
+          <p>Amount of available tickets: {{zone.availableTicketAmount}}</p>
         </mat-card-content>
         <mat-divider inset></mat-divider>
         <mat-card-actions>
-          <button *ngIf="_roles.includes('contributor')" mat-button (click)="openDialogForEditing()">Edit</button>
+          <!--<button *ngIf="_roles.includes('contributor')" mat-button (click)="openDialogForEditing()">Edit</button>-->
+          <button *ngIf="_roles.includes('contributor')" mat-button (click)="deleteZone(zone)">Delete</button>
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
