@@ -1,3 +1,18 @@
 <mat-list>
-  <mat-list-item *ngFor="let type of data.types">{{type.name}}</mat-list-item>
+  <mat-list-item *ngFor="let type of dataSheet.types"><button mat-button id="mainMenu" [matMenuTriggerFor]="menu">{{type.name}}</button>
+    <mat-menu #menu="matMenu" xPosition="after">
+      <button mat-menu-item (click)="deleteType(type.id)">Delete</button>
+      <button mat-menu-item id="editMenu" [matMenuTriggerFor]="editMenu">Edit</button>
+    </mat-menu>
+    <mat-menu #editMenu="matMenu" xPosition="after" style="width: 250px; height: 250px">
+      <form (click)="stopPropagation($event)">
+        <mat-form-field class="example-form-field" appearance="fill" >
+          <mat-label>Editing zone type: {{type.name}}</mat-label>
+          <input matInput type="text" id="typeName" name="typeName" #typeName>
+        </mat-form-field>
+        <button mat-raised-button (click)="editType(type.id, typeName.value)">Save</button>
+      </form>
+    </mat-menu>
+  </mat-list-item>
 </mat-list>
+

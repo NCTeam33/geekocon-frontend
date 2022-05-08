@@ -9,7 +9,7 @@ import { ZoneType } from 'src/app/_model/zone.type.model';
 })
 export class DialogZoneTypeComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ZoneType) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
   ngOnInit(): void {
   }
 

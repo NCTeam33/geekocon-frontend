@@ -14,11 +14,6 @@ export class FestService {
 
   constructor(private http: HttpClient) { }
 
-  getTestZones(): Observable<Zone[]> {
-    const uri = `${env.api_host}/zones/test`;
-    return this.http.get<Zone[]>(uri);
-  }
-
   getZones(): Observable<Zone[]> {
     const uri = `${env.api_host}/zones`;
     return this.http.get<Zone[]>(uri);
@@ -54,9 +49,14 @@ export class FestService {
     return this.http.delete(uri);
   }
 
-  editZone(zone: Zone){
-    const uri = `${env.api_host}/zones/${zone.id}`;
-    return this.http.post(uri, zone);
+  editZone(id: number, zone: Zone){
+    const uri = `${env.api_host}/zones/${id}`;
+    return this.http.put(uri, zone);
+  }
+
+  editZoneType(id: number, zoneType: ZoneType){
+    const uri = `${env.api_host}/zones/types/${id}`;
+    return this.http.put(uri, zoneType);
   }
 
 }

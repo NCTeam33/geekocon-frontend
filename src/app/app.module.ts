@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {UserNavComponent} from './user-nav/user-nav.component';
 import {initializer} from './initializer.service';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
-import {ZonesComponent} from './zones/zones.component';
+import {NotificationDialog, ZonesComponent} from './zones/zones.component';
 import {MaterialExampleModule} from '../material.module';
 import {DialogComponent } from './zones/dialog/dialog.component';
 import {AboutUsComponent } from './about-us/about-us.component';
@@ -14,7 +14,7 @@ import {FestService} from './fest.service';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { DialogZoneTypeComponent } from './zones/dialog-zone-type/dialog-zone-type.component';
-import { BottomSheetComponent } from './zones/bottom-sheet/bottom-sheet.component';
+import {BottomSheetComponent, NotificationDialogForType} from './zones/bottom-sheet/bottom-sheet.component';
 
 
 @NgModule({
@@ -26,6 +26,8 @@ import { BottomSheetComponent } from './zones/bottom-sheet/bottom-sheet.componen
     AboutUsComponent,
     DialogZoneTypeComponent,
     BottomSheetComponent,
+    NotificationDialog,
+    NotificationDialogForType
   ],
     imports: [
         BrowserModule,
