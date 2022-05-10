@@ -36,11 +36,12 @@
         <mat-card-title>{{zone.name}}</mat-card-title>
         <mat-card-content>
           <p>{{zone.description}}</p>
+          <p *ngIf="_roles.includes('contributor')">Total amount of tickets: {{zone.totalTicketAmount}}</p>
           <p>Amount of available tickets: {{zone.availableTicketAmount}}</p>
         </mat-card-content>
         <mat-divider inset></mat-divider>
         <mat-card-actions>
-          <button *ngIf="_roles.includes('contributor')" mat-button (click)="openDialogForEditing(zone)">Edit</button>
+          <button *ngIf="_roles.includes('contributor')" mat-button (click)="openDialogForEditing(zone.id)">Edit</button>
           <button *ngIf="_roles.includes('contributor')" mat-button (click)="deleteZone(zone)">Delete</button>
         </mat-card-actions>
       </mat-card>

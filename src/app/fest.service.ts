@@ -46,7 +46,7 @@ export class FestService {
 
   deleteZone(id : number){
     const uri = `${env.api_host}/zones/${id}`;
-    return this.http.delete(uri);
+    return this.http.delete<Zone>(uri);
   }
 
   editZone(id: number, zone: Zone){

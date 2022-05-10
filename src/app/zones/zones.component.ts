@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { DialogZoneTypeComponent } from './dialog-zone-type/dialog-zone-type.component';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {BottomSheetComponent, NotificationDialogForType} from './bottom-sheet/bottom-sheet.component';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-zones',
@@ -56,11 +57,7 @@ export class ZonesComponent implements OnInit {
     dialForAdd.afterClosed().subscribe(result => {
       console.log("Zone type successfully added");
       let buff: ZoneType = new ZoneType(result);
-      const zoneType$ = this.fest.addZoneType(buff).pipe(
-        map(result => {
-          this.zoneType = result;
-        })
-      );
+      const zoneType$ = this.fest.addZoneType(buff);
       zoneType$.subscribe(data => data);
     })
   }
@@ -114,8 +111,8 @@ export class ZonesComponent implements OnInit {
         result.name,
         );
       console.log("Zone successfully added");
-      const zone$ = this.fest.addZone(buff);
-      zone$.subscribe(data => data);
+      const zones$ = this.fest.addZone(buff);
+      zones$.subscribe(data => data);
     })
   }
     openDialogForEditing(id: number)
@@ -141,8 +138,8 @@ export class ZonesComponent implements OnInit {
           result.name,
         );
         console.log("Zone successfully edited");
-        const zone$ = this.fest.addZone(buff);
-        zone$.subscribe(data => data);
+        const zones$ = this.fest.editZone(id, buff);
+        zones$.subscribe(data => data);
       })
     }
 
