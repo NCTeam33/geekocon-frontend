@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   isLoggedIn = false;
 
   constructor(private readonly keycloak: KeycloakService) {}
-  async ngOnInit(): Promise<void> {
+  async ngOnInit(){
     this.isLoggedIn = await this.keycloak.isLoggedIn();
   }
   logout(): void {

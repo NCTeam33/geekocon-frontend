@@ -34,29 +34,29 @@ export class FestService {
     return this.http.post<ZoneType>(uri, zoneType);
   }
 
-  addZone(Zone : Zone): Observable<Zone> {
+  addZone(Zone : Zone): Observable<Zone>{
     const uri = `${env.api_host}/zones`;
     return this.http.post<Zone>(uri, Zone);
   }
 
-  deleteZoneType(id : number) {
+  deleteZoneType(id : number) : Observable<any>{
     const uri = `${env.api_host}/zones/types/${id}`;
     return this.http.delete(uri);
   }
 
-  deleteZone(id : number){
+  deleteZone(id : number) : Observable<any>{
     const uri = `${env.api_host}/zones/${id}`;
-    return this.http.delete<Zone>(uri);
+    return this.http.delete(uri);
   }
 
-  editZone(id: number, zone: Zone){
+  editZone(id: number, zone: Zone) : Observable<Zone>{
     const uri = `${env.api_host}/zones/${id}`;
-    return this.http.put(uri, zone);
+    return this.http.put<Zone>(uri, zone);
   }
 
-  editZoneType(id: number, zoneType: ZoneType){
+  editZoneType(id: number, zoneType: ZoneType) : Observable<ZoneType>{
     const uri = `${env.api_host}/zones/types/${id}`;
-    return this.http.put(uri, zoneType);
+    return this.http.put<ZoneType>(uri, zoneType);
   }
 
 }

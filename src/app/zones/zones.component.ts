@@ -18,6 +18,7 @@ import {Observable} from 'rxjs';
 })
 
 export class ZonesComponent implements OnInit {
+  flag: boolean;
   _roles: string[];
   zones: Zone[];
   zoneTypes: ZoneType[];
@@ -44,8 +45,11 @@ export class ZonesComponent implements OnInit {
   }
 
   deleteZone(zone: Zone) {
-    this.fest.deleteZone(zone.id).subscribe();
-    this.openNotificationDialog();
+    this.fest.deleteZone(zone.id).subscribe(() => {
+      this.openNotificationDialog();
+      this.getZones();
+    });
+
   }
 
   addZoneType() {
@@ -58,7 +62,7 @@ export class ZonesComponent implements OnInit {
       console.log("Zone type successfully added");
       let buff: ZoneType = new ZoneType(result);
       const zoneType$ = this.fest.addZoneType(buff);
-      zoneType$.subscribe(data => data);
+      zoneType$.subscribe(zoneType => this.zoneTypes.push(zoneType));
     })
   }
   getZones() {
@@ -78,11 +82,12 @@ export class ZonesComponent implements OnInit {
   }
 
   openBottomSheet() {
-    this.zoneTypeSheet.open(BottomSheetComponent, {
+    const bottomSheet$ = this.zoneTypeSheet.open(BottomSheetComponent, {
       data: {
         types: this.zoneTypes,
       }
     });
+    bottomSheet$.afterDismissed().subscribe(() => this.getZoneTypes());
   }
 
   openNotificationDialog(){
@@ -90,6 +95,7 @@ export class ZonesComponent implements OnInit {
   }
 
   openDialogForAdd() {
+    this.flag = false;
     const dialForAdd = this.dialogForZones.open(DialogComponent, {
       data: {
         zone: {
@@ -99,7 +105,8 @@ export class ZonesComponent implements OnInit {
           contributorId: this.contributorId, description: this.description,
           totalTicketAmount: this.tta, availableTicketAmount: this.ata, name: this.zoneName
         },
-        zoneTypes: this.zoneTypes
+        zoneTypes: this.zoneTypes,
+        flag: this.flag
       },
     });
     dialForAdd.afterClosed().subscribe(result => {
@@ -112,21 +119,17 @@ export class ZonesComponent implements OnInit {
         );
       console.log("Zone successfully added");
       const zones$ = this.fest.addZone(buff);
-      zones$.subscribe(data => data);
+      zones$.subscribe(zone => this.zones.push(zone));
     })
   }
-    openDialogForEditing(id: number)
+    openDialogForEditing(zone: Zone)
     {
+      this.flag = true;
       const dialForEditing = this.dialogForZones.open(DialogComponent, {
         data: {
-          zone: {
-            type: {
-              id: this.zoneTypeId
-            },
-            contributorId: this.contributorId, description: this.description,
-            totalTicketAmount: this.tta, availableTicketAmount: this.ata, name: this.zoneName
-          },
-          zoneTypes: this.zoneTypes
+          zone: zone,
+          zoneTypes: this.zoneTypes,
+          flag: this.flag,
         },
       });
       dialForEditing.afterClosed().subscribe(result => {
@@ -138,8 +141,8 @@ export class ZonesComponent implements OnInit {
           result.name,
         );
         console.log("Zone successfully edited");
-        const zones$ = this.fest.editZone(id, buff);
-        zones$.subscribe(data => data);
+        const zones$ = this.fest.editZone(zone.id, buff);
+        zones$.subscribe(() => this.getZones());
       })
     }
 

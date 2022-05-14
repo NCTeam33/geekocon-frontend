@@ -27,13 +27,16 @@ export class BottomSheetComponent implements OnInit {
   }
 
   deleteType(id: number) {
-    this.fest.deleteZoneType(id).subscribe();
-    this.openNotificationDialog();
+    this.fest.deleteZoneType(id).subscribe(() => {
+      this.openNotificationDialog();
+      this.fest.getZonesTypes().subscribe(zoneTypes => this.dataSheet.types = zoneTypes);
+    });
+
   }
 
   editType(id: number, name: string) {
-    var buff = new ZoneType(name, id);
-    this.fest.editZoneType(id, buff).subscribe();
+    let buff = new ZoneType(name, id);
+    this.fest.editZoneType(id, buff).subscribe(() => this.fest.getZonesTypes().subscribe(zoneTypes => this.dataSheet.types = zoneTypes));
   }
 
 }
