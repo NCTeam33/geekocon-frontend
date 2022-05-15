@@ -59,6 +59,7 @@ export class ZonesComponent implements OnInit {
       },
     });
     dialForAdd.afterClosed().subscribe(result => {
+      // TODO проверка на пустую строку
       console.log("Zone type successfully added");
       let buff: ZoneType = new ZoneType(result);
       const zoneType$ = this.fest.addZoneType(buff);

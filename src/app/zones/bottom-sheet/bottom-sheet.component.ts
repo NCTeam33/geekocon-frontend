@@ -22,13 +22,17 @@ export class BottomSheetComponent implements OnInit {
     event.stopPropagation();
   }
 
-  openNotificationDialog(){
-    this.notifDialog.open(NotificationDialogForType);
+  openNotificationDialog(message: Response){
+    this.notifDialog.open(NotificationDialogForType, {
+      data: {
+        message: message,
+      }
+    });
   }
 
   deleteType(id: number) {
-    this.fest.deleteZoneType(id).subscribe(() => {
-      this.openNotificationDialog();
+    this.fest.deleteZoneType(id).subscribe(message => {
+      this.openNotificationDialog(message);
       this.fest.getZonesTypes().subscribe(zoneTypes => this.dataSheet.types = zoneTypes);
     });
 
@@ -46,5 +50,5 @@ export class BottomSheetComponent implements OnInit {
   templateUrl: 'notification-dialog-for-type.html',
 })
 export class NotificationDialogForType {
-  constructor() {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }

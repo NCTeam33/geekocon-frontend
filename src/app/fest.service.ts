@@ -39,9 +39,9 @@ export class FestService {
     return this.http.post<Zone>(uri, Zone);
   }
 
-  deleteZoneType(id : number) : Observable<any>{
+  deleteZoneType(id : number) : Observable<Response>{
     const uri = `${env.api_host}/zones/types/${id}`;
-    return this.http.delete(uri);
+    return this.http.delete<Response>(uri);
   }
 
   deleteZone(id : number) : Observable<any>{
