@@ -4,6 +4,7 @@ import {ZoneType} from '../../_model/zone.type.model';
 import {FestService} from '../../fest.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {types} from '@angular/compiler-cli/linker/babel/src/babel_core';
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-bottom-sheet',
@@ -22,19 +23,38 @@ export class BottomSheetComponent implements OnInit {
     event.stopPropagation();
   }
 
-  openNotificationDialog(message: Response){
-    this.notifDialog.open(NotificationDialogForType, {
-      data: {
-        message: message,
-      }
-    });
+  openNotificationDialog(message: HttpResponse<any>, choice: boolean){
+    if(choice){
+      this.notifDialog.open(NotificationDialogForType, {
+        data: {
+          message: "Zone Type was successfully deleted!",
+        }
+      });
+    }
+    else {
+      let string = JSON.stringify(message);
+      let buff;
+      JSON.parse(string, ((key, value) => {
+        if(key === "error") {
+          buff = value;
+        }
+      }))
+      this.notifDialog.open(NotificationDialogForType, {
+        data: {
+          message: buff,
+        }
+      });
+    }
   }
 
   deleteType(id: number) {
-    this.fest.deleteZoneType(id).subscribe(message => {
-      this.openNotificationDialog(message);
+    this.fest.deleteZoneType(id).subscribe((message) => {
+      this.openNotificationDialog(message, true);
       this.fest.getZonesTypes().subscribe(zoneTypes => this.dataSheet.types = zoneTypes);
-    });
+    },
+      ((error) => {
+        this.openNotificationDialog(error, false);
+      }));
 
   }
 

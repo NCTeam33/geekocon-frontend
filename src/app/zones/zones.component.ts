@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { FestService } from '../fest.service';
 import { map, catchError } from 'rxjs/operators';
 import { Zone } from '../_model/zone.model';
 import { ZoneType } from '../_model/zone.type.model';
 import {AppComponent} from '../app.component';
 import {DialogComponent} from './dialog/dialog.component';
-import {MatDialog} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import { DialogZoneTypeComponent } from './dialog-zone-type/dialog-zone-type.component';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {BottomSheetComponent, NotificationDialogForType} from './bottom-sheet/bottom-sheet.component';
@@ -18,6 +18,7 @@ import {Observable} from 'rxjs';
 })
 
 export class ZonesComponent implements OnInit {
+  choice: number;
   flag: boolean;
   _roles: string[];
   zones: Zone[];
@@ -46,7 +47,7 @@ export class ZonesComponent implements OnInit {
 
   deleteZone(zone: Zone) {
     this.fest.deleteZone(zone.id).subscribe(() => {
-      this.openNotificationDialog();
+      this.openNotificationDialog(0);
       this.getZones();
     });
 
@@ -59,11 +60,15 @@ export class ZonesComponent implements OnInit {
       },
     });
     dialForAdd.afterClosed().subscribe(result => {
-      // TODO проверка на пустую строку
-      console.log("Zone type successfully added");
-      let buff: ZoneType = new ZoneType(result);
-      const zoneType$ = this.fest.addZoneType(buff);
-      zoneType$.subscribe(zoneType => this.zoneTypes.push(zoneType));
+      if(result === undefined){
+        this.openNotificationDialog(1);
+      } else {
+        console.log("Zone type successfully added");
+        let buff: ZoneType = new ZoneType(result);
+        const zoneType$ = this.fest.addZoneType(buff);
+        zoneType$.subscribe(zoneType => this.zoneTypes.push(zoneType));
+        this.openNotificationDialog(2);
+      }
     })
   }
   getZones() {
@@ -91,8 +96,27 @@ export class ZonesComponent implements OnInit {
     bottomSheet$.afterDismissed().subscribe(() => this.getZoneTypes());
   }
 
-  openNotificationDialog(){
-    this.notifDialog.open(NotificationDialog);
+  openNotificationDialog(choice: number){
+    let message: string;
+    switch (choice){
+      case 0: {
+        message = "Zone was successfully deleted!";
+        break;
+      }
+      case 1: {
+        message = "String is empty, try again!";
+        break;
+      }
+      case 2: {
+        message = "Zone Type was successfully added!";
+        break;
+      }
+    }
+    this.notifDialog.open(NotificationDialog, {
+      data: {
+        message: message,
+      }
+    });
   }
 
   openDialogForAdd() {
@@ -111,6 +135,9 @@ export class ZonesComponent implements OnInit {
       },
     });
     dialForAdd.afterClosed().subscribe(result => {
+      /*if(result.zone.name === null){
+        this.openNotificationDialog(1);
+      }*/
       let buff = new Zone(new ZoneType("", result.type.id),
         result.contributorId,
         result.description,
@@ -160,5 +187,5 @@ export class ZonesComponent implements OnInit {
   templateUrl: 'notification-dialog.html',
 })
 export class NotificationDialog {
-  constructor() {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }

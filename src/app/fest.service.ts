@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment as env } from '../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Zone} from './_model/zone.model';
 import {ZoneType} from './_model/zone.type.model';
 import {catchError, tap} from 'rxjs/operators';
@@ -39,9 +39,9 @@ export class FestService {
     return this.http.post<Zone>(uri, Zone);
   }
 
-  deleteZoneType(id : number) : Observable<Response>{
+  deleteZoneType(id : number) : Observable<any>{
     const uri = `${env.api_host}/zones/types/${id}`;
-    return this.http.delete<Response>(uri);
+    return this.http.delete<any>(uri);
   }
 
   deleteZone(id : number) : Observable<any>{
@@ -58,5 +58,4 @@ export class FestService {
     const uri = `${env.api_host}/zones/types/${id}`;
     return this.http.put<ZoneType>(uri, zoneType);
   }
-
 }

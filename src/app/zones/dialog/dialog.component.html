@@ -2,6 +2,11 @@
 <div id="add" *ngIf="!data.flag">
 
   <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Name of zone</mat-label>
+    <input matInput placeholder="Ex. Nintendo" [(ngModel)]="data.zone.name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Type of zone</mat-label>
     <mat-select [(ngModel)]="data.zone.type.id">
       <mat-option *ngFor="let types of data.zoneTypes" [value]="types.id">
@@ -23,17 +28,17 @@
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Available tickets amount</mat-label>
     <input matInput placeholder="Ex. 5" [(ngModel)]="data.zone.availableTicketAmount">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Name of zone</mat-label>
-    <input matInput placeholder="Ex. Nintendo" [(ngModel)]="data.zone.name">
   </mat-form-field>
 </div>
 
 <div id="edit" *ngIf="data.flag">
 
   <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Name of zone</mat-label>
+    <input matInput placeholder="Ex. Nintendo" [(ngModel)]="data.zone.name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Type of zone</mat-label>
     <mat-select [(ngModel)]="data.zone.type.id">
       <mat-option *ngFor="let types of data.zoneTypes" [value]="types.id">
@@ -55,11 +60,6 @@
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Available tickets amount</mat-label>
     <input matInput placeholder="Ex. 5" [(ngModel)]="data.zone.availableTicketAmount">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Name of zone</mat-label>
-    <input matInput placeholder="Ex. Nintendo" [(ngModel)]="data.zone.name">
   </mat-form-field>
 </div>
 
